@@ -36,7 +36,7 @@ RUN apt-get update && \
 RUN echo "R_LIBS=/usr/local/lib/R/host-site-library:\${R_LIBS}" > /usr/local/lib/R/etc/Renviron.site
 RUN echo "R_LIBS_USER=''" >> /usr/local/lib/R/etc/Renviron.site
 RUN echo "options(defaultPackages=c(getOption('defaultPackages'),'BiocManager'))" >> /usr/local/lib/R/etc/Rprofile.site
-RUN R -e 'install.packages(c("missForest", "glmnet", "caret", "doParallel", "dbplyr", "randomforest"))'
+RUN R -e 'install.packages(c("missForest", "glmnet", "caret", "doParallel", "dbplyr", "randomforest", "docopt"))'
 RUN R -e 'BiocManager::install("biomaRt")'
 
 #specify the command executed when the container is started

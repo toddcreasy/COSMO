@@ -276,10 +276,11 @@ prpr_omics <- function(omicsdata, sexgenes) {
   if (missingPct >= 0.30) {
     cat('  ', sprintf('%d(%.2f%%) of autosomal gene(s) has NA missing values - impute missing values... \n', missingrow, missingPct))
     auto_omic <- t(auto_omic)
-    cl <- makeCluster(detectCores())
-    registerDoParallel(cl)
+    #cl <- makeCluster(detectCores())
+    #registerDoParallel(cl)
+    registerDoParallel(12)
     auto_imp <- missForest(auto_omic, parallelize="variables")
-    stopCluster(cl)
+    #stopCluster(cl)
     auto_omic <- auto_imp$ximp
   } else {
     cat('  ', sprintf('%d(%.2f%%) of autosomal gene(s) has NA missing values - removed... \n', missingrow, missingPct))
@@ -567,8 +568,9 @@ predictCV <- function(traincli, nonmatch, d1_sex, d1_atsm, d2_sex, d2_atsm,
   # true probability
   cli_attr_prob_names_true <- paste(clinical_attributes,"_prob",sep = "")
   
-  cl <- makeCluster(detectCores())
-  registerDoParallel(cl)
+  #cl <- makeCluster(detectCores())
+  #registerDoParallel(cl)
+  registerDoParallel(12)
   
   for(i in 1:length(clinical_attributes)){
     if(is_gender(clinical_attributes[i])){
@@ -602,7 +604,7 @@ predictCV <- function(traincli, nonmatch, d1_sex, d1_atsm, d2_sex, d2_atsm,
     
   }
   
-  stopCluster(cl)
+  #stopCluster(cl)
   
   return(traincli)
 }
@@ -693,8 +695,9 @@ predictLR <- function(traincli, nonmatch, d1_sex, d1_atsm, d2_sex, d2_atsm,
   cli_attr_prob_names_d1 <- paste("d1",clinical_attributes,sep = "")
   cli_attr_prob_names_d2 <- paste("d2",clinical_attributes,sep = "")
   
-  cl <- makeCluster(detectCores())
-  registerDoParallel(cl)
+  #cl <- makeCluster(detectCores())
+  #registerDoParallel(cl)
+  registerDoParallel(12)
   
   for(i in 1:length(clinical_attributes)){
     if(is_gender(clinical_attributes[i])){
@@ -761,7 +764,7 @@ predictLR <- function(traincli, nonmatch, d1_sex, d1_atsm, d2_sex, d2_atsm,
     
   }
   
-  stopCluster(cl)
+  #stopCluster(cl)
   
   
   return(traincli)
