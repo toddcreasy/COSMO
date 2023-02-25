@@ -1,5 +1,5 @@
 FROM bioconductor/bioconductor_docker:RELEASE_3_12
-MAINTAINER zhiao.shi@gmail.com
+MAINTAINER todd.creasy@astrazeneca.com
 ARG PYTHON=python3
 ARG PIP=pip3
 
