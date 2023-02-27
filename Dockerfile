@@ -39,5 +39,18 @@ RUN echo "options(defaultPackages=c(getOption('defaultPackages'),'BiocManager'))
 RUN R -e 'install.packages(c("missForest", "glmnet", "caret", "doParallel", "dbplyr", "randomforest", "docopt"))'
 RUN R -e 'BiocManager::install("biomaRt")'
 
+WORKDIR /opt/
+
+# Install Nextflow
+RUN curl -s https://get.nextflow.io | bash
+RUN chmod +x nextflow
+RUN mv nextflow /usr/local/bin
+
+# Install COSMO
+RUN git clone https://github.com/bzhanglab/cosmo
+
+COPY ./run_cosmo.sh /opt
+ENTRYPOINT ["/opt/run_cosmo.sh"]
+
 #specify the command executed when the container is started
 CMD ["/bin/bash"]
