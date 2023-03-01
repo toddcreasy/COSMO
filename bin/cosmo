@@ -276,11 +276,15 @@ prpr_omics <- function(omicsdata, sexgenes) {
   if (missingPct >= 0.30) {
     cat('  ', sprintf('%d(%.2f%%) of autosomal gene(s) has NA missing values - impute missing values... \n', missingrow, missingPct))
     auto_omic <- t(auto_omic)
+    print("auto_omic:")
+    print(str(auto_omic))
     #cl <- makeCluster(detectCores())
     #registerDoParallel(cl)
     registerDoParallel(12)
+    print("running missForest")
     auto_imp <- missForest(auto_omic, parallelize="variables")
     #stopCluster(cl)
+    print("Done.")
     auto_omic <- auto_imp$ximp
   } else {
     cat('  ', sprintf('%d(%.2f%%) of autosomal gene(s) has NA missing values - removed... \n', missingrow, missingPct))

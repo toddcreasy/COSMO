@@ -47,10 +47,11 @@ RUN chmod +x nextflow
 RUN mv nextflow /usr/local/bin
 
 # Install COSMO
-RUN git clone https://github.com/bzhanglab/cosmo
+RUN git clone https://github.com/toddcreasy/cosmo
 
 COPY ./run_cosmo.sh /opt
 ENTRYPOINT ["/opt/run_cosmo.sh"]
 
 #specify the command executed when the container is started
-CMD ["/bin/bash"]
+#CMD ["/bin/bash"]
+CMD ["-u", "-m", "swagger_server"]
